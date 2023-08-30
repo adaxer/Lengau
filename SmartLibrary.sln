@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34009.444
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartLibrary.Maui", "SmartLibrary.Maui\SmartLibrary.Maui.csproj", "{2AE2D9BE-E695-4DCF-ADF5-E9B3BCEF2E98}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartLibrary.Common", "SmartLibrary.Common\SmartLibrary.Common.csproj", "{8A91C5EB-D2C4-499F-A21C-D70222E97EAF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2AE2D9BE-E695-4DCF-ADF5-E9B3BCEF2E98}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2AE2D9BE-E695-4DCF-ADF5-E9B3BCEF2E98}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2AE2D9BE-E695-4DCF-ADF5-E9B3BCEF2E98}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{2AE2D9BE-E695-4DCF-ADF5-E9B3BCEF2E98}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2AE2D9BE-E695-4DCF-ADF5-E9B3BCEF2E98}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2AE2D9BE-E695-4DCF-ADF5-E9B3BCEF2E98}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{8A91C5EB-D2C4-499F-A21C-D70222E97EAF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A91C5EB-D2C4-499F-A21C-D70222E97EAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A91C5EB-D2C4-499F-A21C-D70222E97EAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A91C5EB-D2C4-499F-A21C-D70222E97EAF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0B7F3E1B-9FF0-4CDE-8512-1A7EB012C92C}
+	EndGlobalSection
+EndGlobal
