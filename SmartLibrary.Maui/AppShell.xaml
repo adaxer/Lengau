@@ -16,6 +16,6 @@
 		Shell.NavBarIsVisible="true"
 		Title="ListDetail"
 		Icon="iconlistdetail.png"
-		ContentTemplate="{DataTemplate views:ListDetailPage}"
+		ContentTemplate="{DataTemplate views:SearchPage}"
 		Route="ListDetailPage" />
 </Shell>

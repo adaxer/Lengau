@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			 xmlns:vm="clr-namespace:SmartLibrary.Common.ViewModels;assembly=SmartLibrary.Common"
+			 xmlns:m="clr-namespace:SmartLibrary.Common.Models;assembly=SmartLibrary.Common"
+			 x:Class="SmartLibrary.Maui.Views.SearchPage"
+			 x:DataType="vm:SearchViewModel">
+
+    <Grid RowDefinitions="Auto, *">
+        <Grid ColumnDefinitions="Auto,*,Auto">
+            <Label Text="Suchtext" VerticalOptions="Center"/>
+            <Entry Text="{Binding SearchText}" Placeholder="Suche nach..." Grid.Column="1" VerticalOptions="Center"/>
+            <Button Text="Suche Starten" Command="{Binding SearchCommand}" Grid.Column="2" VerticalOptions="Center"/>
+        </Grid>
+        <CollectionView ItemsSource="{Binding Books}" Grid.Row="1" >
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="m:Book">
+                    <Frame Margin="4" Padding="12">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:SearchViewModel}}, Path=ShowBookCommand}" CommandParameter="{Binding .}" />
+                        </Frame.GestureRecognizers>
+                        <Label Text="{Binding Info.Title}" FontSize="Large" />
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+</ContentPage>

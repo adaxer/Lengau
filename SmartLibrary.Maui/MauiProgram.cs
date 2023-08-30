@@ -18,16 +18,18 @@ public static class MauiProgram
 			});
 
 		builder.Services.AddSingleton<INavigatorService, NavigatorService>();	
+		builder.Services.AddSingleton<IBookService, BookService>();
+        builder.Services.AddSingleton<IRestService, RestService>();
+		builder.Services.AddSingleton<IBookShareClient, BookShareClient>();
 
 		builder.Services.AddSingleton<MainViewModel>();
 		builder.Services.AddSingleton<MainPage>();
 
-		builder.Services.AddTransient<SampleDataService>();
-		builder.Services.AddSingleton<ListDetailViewModel>();
-		builder.Services.AddSingleton<ListDetailPage>();
+		builder.Services.AddSingleton<SearchViewModel>();
+		builder.Services.AddSingleton<SearchPage>();
 
-		builder.Services.AddTransient<ListDetailDetailViewModel>();
-		builder.Services.AddTransient<ListDetailDetailPage>();
+		builder.Services.AddTransient<DetailsViewModel>();
+		builder.Services.AddTransient<DetailsPage>();
 
 		return builder.Build();
 	}
