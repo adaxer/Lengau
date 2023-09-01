@@ -2,5 +2,6 @@
 
 public interface IBookStorage
 {
-    Task<IEnumerable<SavedBookEntry>> GetSharedBooks();
+    Task<IEnumerable<SavedBook>> GetSavedBooks();
+    Task SaveBook(SavedBook book);
 }

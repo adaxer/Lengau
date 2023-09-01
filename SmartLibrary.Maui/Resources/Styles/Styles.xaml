@@ -122,7 +122,8 @@
 
 	<Style TargetType="Frame">
 		<Setter Property="HasShadow" Value="False" />
-		<Setter Property="BorderColor" Value="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray950}}" />
+        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource Gray100}, Dark={StaticResource Gray500}}" />
+        <Setter Property="BorderColor" Value="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray950}}" />
 		<Setter Property="CornerRadius" Value="8" />
 	</Style>
 
@@ -146,7 +147,7 @@
 	</Style>
 
 	<Style TargetType="Label">
-		<Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource Gray900}, Dark={StaticResource White}}" />
+		<Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}" />
 		<Setter Property="FontFamily" Value="OpenSansRegular" />
 		<Setter Property="FontSize" Value="14" />
 		<Setter Property="VisualStateManager.VisualStateGroups">

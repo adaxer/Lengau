@@ -1,6 +1,7 @@
-﻿using SmartLibrary.Common.Interfaces;
+﻿using Microsoft.EntityFrameworkCore;
+using SmartLibrary.Common.Interfaces;
 using SmartLibrary.Common.Services;
-using SmartLibrary.Common.ViewModels;
+using SmartLibrary.Data;
 
 namespace SmartLibrary.Maui;
 
@@ -17,10 +18,16 @@ public static class MauiProgram
 				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
 			});
 
-		builder.Services.AddSingleton<INavigatorService, NavigatorService>();	
-		builder.Services.AddSingleton<IBookService, BookService>();
+		builder.Services.AddLogging();
+
+		builder.Services.AddSingleton<INavigatorService, NavigatorService>();
+		builder.Services.AddSingleton<ILocationService, LocationService>();
+		builder.Services.AddSingleton<IUserService, UserService>();
+        builder.Services.AddSingleton<IBookService, BookService>();
         builder.Services.AddSingleton<IRestService, RestService>();
 		builder.Services.AddSingleton<IBookShareClient, BookShareClient>();
+		builder.Services.AddSingleton<IBookStorage, BookStorage>();
+        builder.Services.AddSingleton<IPubSubService,PubSubService>();
 
 		builder.Services.AddSingleton<MainViewModel>();
 		builder.Services.AddSingleton<MainPage>();
@@ -28,9 +35,16 @@ public static class MauiProgram
 		builder.Services.AddSingleton<SearchViewModel>();
 		builder.Services.AddSingleton<SearchPage>();
 
-		builder.Services.AddTransient<DetailsViewModel>();
-		builder.Services.AddTransient<DetailsPage>();
+        builder.Services.AddTransient<DetailsViewModel>();
+        builder.Services.AddTransient<DetailsPage>();
 
-		return builder.Build();
+        builder.Services.AddSingleton<NewsViewModel>();
+        builder.Services.AddSingleton<NewsPage>();
+
+        builder.Services.AddTransient(sp => sp.GetRequiredService<IBookShareClient>() as IRequireInitializeAsync);
+        builder.Services.AddDbContext<BooksContext>(options =>
+                options.UseSqlite("Filename=Books.db"));
+
+        return builder.Build();
 	}
 }

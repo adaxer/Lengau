@@ -1,25 +1,31 @@
-﻿using SmartLibrary.Common.Interfaces;
+﻿using CommunityToolkit.Mvvm.Messaging;
+using SmartLibrary.Common.Interfaces;
+using SmartLibrary.Common.Messages;
+using SmartLibrary.Common.Models;
 
 namespace SmartLibrary.Common.ViewModels;
 
-public partial class SearchViewModel : BaseViewModel
+public partial class SearchViewModel : BaseViewModel, IRecipient<SharedBookMessage>
 {
     private readonly INavigatorService navigator;
     private readonly IBookService bookService;
 
     public IBookShareClient ShareClient { get; }
 
-    public SearchViewModel(INavigatorService navigator, IBookService bookService, IBookShareClient bookShareClient)
+    public SearchViewModel(INavigatorService navigator, IBookService bookService, IBookShareClient bookShareClient, IPubSubService pubSub)
     {
         Title = "Search";
         this.navigator = navigator;
         this.bookService = bookService;
         ShareClient = bookShareClient;
-        //eventAggregator.GetEvent<BookSharedEvent>().Subscribe(b => Title = b.Title); // Per Event
+        pubSub.Subscribe<SharedBookMessage>(this);
     }
 
     [ObservableProperty]
     private string searchText;
+
+    [ObservableProperty]
+    string sharedBookInfo = "string.Empty";
 
     [ObservableProperty]
     ICollection<Book> books;
@@ -35,12 +41,18 @@ public partial class SearchViewModel : BaseViewModel
     BookQuery lastQuery;
 
     [RelayCommand]
-    private async void Search()
+    private async Task Search()
     {
         IsBusy = true;
         LastQuery = await bookService.BookQueryAsync(SearchText);
         Books = new ObservableCollection<Book>(LastQuery?.Books);
         IsBusy = false;
+    }
+
+    public void Receive(SharedBookMessage message)
+    {
+        var book = message.Value;
+        SharedBookInfo = $"{book.UserName} shared {book.Title} on {book.SaveDate}. Pos {book.Location.Latitude:f2} {book.Location.Longitude:f2}, {book.Notes}"; ;
     }
 }
 

@@ -2,6 +2,6 @@
 
 public interface IUserService
 {
-    string UserName { get; }
+    string UserName { get; set; }
     bool IsLoggedIn { get; }
 }

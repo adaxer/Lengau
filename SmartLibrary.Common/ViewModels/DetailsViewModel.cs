@@ -8,16 +8,17 @@ public partial class DetailsViewModel : BaseViewModel
 {
     private readonly IBookService _bookService;
     private readonly IBookShareClient _bookShareClient;
+    private readonly IBookStorage _bookStorage;
     private readonly ILocationService _locationService;
     private readonly IUserService _userService;
 
-    public DetailsViewModel(INavigatorService navigationService, IBookService bookService, IBookShareClient bookShareClient)//, ILocationService locationService, IUserService userService) 
+    public DetailsViewModel(INavigatorService navigationService, IBookService bookService, IBookShareClient bookShareClient, IBookStorage bookStorage, ILocationService locationService, IUserService userService) 
     {
         _bookService = bookService;
         _bookShareClient = bookShareClient;
-        //_locationService = locationService;
-        //_userService = userService;
-        //eventAggregator.GetEvent<BookSharedEvent>().Subscribe(b => Title = b.Title); // Per Event
+        _bookStorage = bookStorage;
+        _locationService = locationService;
+        _userService = userService;
         if (navigationService.NavigationParameters(nameof(DetailsViewModel)) is { } parameters)
         {
             if (parameters.TryGetValue("BookId", out var id))
@@ -40,27 +41,28 @@ public partial class DetailsViewModel : BaseViewModel
     Book book;
 
     [RelayCommand]
-    private void Save()
+    private async Task Save()
     {
         var location = new Location();
-        //try
-        //{
-        //    location = await _locationService.GetLocationQuick();
-        //}
-        //catch (Exception)
-        //{
-        //    Debug.WriteLine("Location not possible");
-        //}
+        try
+        {
+            location = await _locationService.GetLocationQuick();
+        }
+        catch (Exception)
+        {
+            Debug.WriteLine("Location not possible");
+        }
         string notes = "Notizen";
         SavedBook savedBook = new SavedBook
         {
             BookId = Book?.Id,
-            Title = Book?.Info?.Title,
             SaveDate = DateTimeOffset.Now,
-            // UserName = _userService.IsLoggedIn ? _userService.UserName : "somebody",
+            Title=Book?.Info?.Title,
+            UserName = _userService.IsLoggedIn ? _userService.UserName : "somebody",
             Notes = notes,
             Location = location
         };
-        //await _bookShareClient.ShareBook(savedBook);
+        await _bookStorage.SaveBook(savedBook);
+        await _bookShareClient.ShareBook(savedBook);
     }
 }

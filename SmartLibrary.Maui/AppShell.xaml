@@ -12,10 +12,16 @@
 		Icon="iconblank.png"
 		ContentTemplate="{DataTemplate views:MainPage}"
 		Route="MainPage" />
-	<ShellContent
+    <ShellContent
 		Shell.NavBarIsVisible="true"
-		Title="ListDetail"
+		Title="Search"
 		Icon="iconlistdetail.png"
 		ContentTemplate="{DataTemplate views:SearchPage}"
-		Route="ListDetailPage" />
+		Route="SearchPage" />
+    <ShellContent
+		Shell.NavBarIsVisible="true"
+		Title="News"
+		Icon="share.png"
+		ContentTemplate="{DataTemplate views:NewsPage}"
+		Route="NewsPage" />
 </Shell>

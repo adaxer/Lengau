@@ -4,10 +4,21 @@
 			 xmlns:vm="clr-namespace:SmartLibrary.Common.ViewModels;assembly=SmartLibrary.Common"
 			 x:Class="SmartLibrary.Maui.Views.DetailsPage"
 			 x:DataType="vm:DetailsViewModel">
-	<ScrollView>
-		<VerticalStackLayout Margin="12">
-			<Label Text="{Binding Book.Info.Title}" FontSize="Header" />
-			<Label Text="{Binding Book.Info.Description}" FontSize="Default" />
-		</VerticalStackLayout>
-	</ScrollView>
+    <Grid RowDefinitions="*,Auto" ColumnDefinitions="200,*">
+        <Image Source="{Binding Book.Info.ImageLinks.Thumbnail}" VerticalOptions="Start"/>
+        <ScrollView Grid.Column="1">
+            <VerticalStackLayout Margin="12" >
+                <Label Text="{Binding Book.Info.AuthorInfo}" Style="{DynamicResource TitleLabelStyle}" >
+                    <Label.Triggers>
+                        <DataTrigger TargetType="Label" Binding="{Binding Book.Info.AuthorInfo}" Value="n.n." >
+                            <Setter  Property="Text" Value="No Author" />
+                            <Setter Property="BackgroundColor" Value="Red" />
+                        </DataTrigger>
+                    </Label.Triggers>
+                </Label>
+                <Label Text="{Binding Book.Info.Description}" Style="{StaticResource BodyLabelStyle}" />
+            </VerticalStackLayout>
+        </ScrollView>
+        <Button Text="Teilen" Command="{Binding SaveCommand}" Grid.Row="1" Grid.ColumnSpan="2" HorizontalOptions="Center"/>
+    </Grid>
 </ContentPage>

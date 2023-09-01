@@ -1,32 +1,32 @@
-﻿using Microsoft.AspNetCore.SignalR.Client;
+﻿using CommunityToolkit.Mvvm.Messaging;
+using Microsoft.AspNetCore.SignalR.Client;
 using Newtonsoft.Json;
 using SmartLibrary.Common.Interfaces;
+using SmartLibrary.Common.Messages;
 using System.Diagnostics;
 
 namespace SmartLibrary.Common.Services;
 
-public class BookShareClient : IBookShareClient
+public class BookShareClient : IBookShareClient, IRequireInitializeAsync
 {
     private HubConnection _connection;
-    //private IEventAggregator _events;
+    private readonly IPubSubService pubSubService;
 
-    public string LastBookInfo { get; private set; }
-
-    public BookShareClient()//IEventAggregator events)
+    public BookShareClient(IPubSubService pubSub)
     {
-      //  _events = events;
+        pubSubService = pubSub;
     }
-
-    public async Task Initialize()
+    public async Task InitializeAsync()
     {
         try
         {
             _connection = new HubConnectionBuilder()
-                .WithUrl($"bookshub")
+                .WithUrl($"https://daxbookserver.azurewebsites.net/bookshub")
                 .Build();
 
             _connection.On<string>("BookShared", OnBookShared);
             await _connection.StartAsync();
+            await Task.Delay(1000);
         }
         catch (Exception ex)
         {
@@ -38,17 +38,16 @@ public class BookShareClient : IBookShareClient
     private void OnBookShared(string json)
     {
         var book = JsonConvert.DeserializeObject<SavedBook>(json);
-        LastBookInfo = $"{book.UserName} shared {book.Title} on {book.SaveDate}. Pos {book.Location.Latitude:f2} {book.Location.Longitude:f2}, {book.Notes}";
-       // _events.GetEvent<BookSharedEvent>().Publish(book);
+        pubSubService.Publish(new SharedBookMessage(book));
     }
 
     public async Task<bool> ShareBook(SavedBook book)
     {
         try
         {
-            if(_connection.State == HubConnectionState.Disconnected)
+            if(_connection==null || _connection.State == HubConnectionState.Disconnected)
             {
-                await Initialize();
+                await InitializeAsync();
             }
             await _connection.InvokeAsync("ShareBook", JsonConvert.SerializeObject(book));
             return true;
