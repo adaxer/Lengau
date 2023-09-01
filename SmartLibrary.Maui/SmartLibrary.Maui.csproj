@@ -46,22 +46,40 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="CommunityToolkit.MVVM" Version="8.2.0" />
-	  <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.5" />
-	  <PackageReference Include="sqlite-net-pcl" Version="1.8.116" />
+	  <MauiCss Remove="Resources\Styles\CssStyles.css" />
+	  <MauiCss Remove="Resources\Styles\Styles.css" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Remove="Resources\Images\share.svg" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="CommunityToolkit.MVVM" Version="8.2.1" />
+	  <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.10" />
 	</ItemGroup>
 
 	<ItemGroup>
 	  <ProjectReference Include="..\SmartLibrary.Common\SmartLibrary.Common.csproj" />
+	  <ProjectReference Include="..\SmartLibrary.Data\SmartLibrary.Data.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="Views\NewsPage.xaml.cs">
+	    <DependentUpon>NewsPage.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Views\DetailsPage.xaml.cs">
 	    <DependentUpon>DetailsPage.xaml</DependentUpon>
 	  </Compile>
 	  <Compile Update="Views\SearchPage.xaml.cs">
 	    <DependentUpon>SearchPage.xaml</DependentUpon>
 	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="Views\NewsPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	</ItemGroup>
 
 	<PropertyGroup Label="MauiAppAccelerator">
@@ -77,6 +95,8 @@
 		<GenerateTestArtifacts>True</GenerateTestArtifacts>
 		<AppInstallerUri>https://localhost:5553/myapp</AppInstallerUri>
 		<HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
+		<DefaultLanguage>en-us</DefaultLanguage>
+		<PackageCertificateThumbprint>7279EBFE46DC609CBB014C2F29B9CC3FFE722C41</PackageCertificateThumbprint>
 	</PropertyGroup>
 
 </Project>

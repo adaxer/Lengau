@@ -16,7 +16,7 @@ public class NavigatorService : INavigatorService
     {
         if (currentParameters.TryGetValue(targetViewModel, out var savedParameters))
         {
-            currentParameters.Remove(targetViewModel);
+            currentParameters.Clear();
             return savedParameters;
         }
         return null;

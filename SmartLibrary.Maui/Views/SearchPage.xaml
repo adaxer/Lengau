@@ -3,13 +3,14 @@
 			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
 			 xmlns:vm="clr-namespace:SmartLibrary.Common.ViewModels;assembly=SmartLibrary.Common"
 			 xmlns:m="clr-namespace:SmartLibrary.Common.Models;assembly=SmartLibrary.Common"
+             xmlns:c="clr-namespace:SmartLibrary.Maui.Controls"
 			 x:Class="SmartLibrary.Maui.Views.SearchPage"
 			 x:DataType="vm:SearchViewModel">
 
-    <Grid RowDefinitions="Auto, *">
+    <Grid RowDefinitions="Auto, *, Auto">
         <Grid ColumnDefinitions="Auto,*,Auto">
             <Label Text="Suchtext" VerticalOptions="Center"/>
-            <Entry Text="{Binding SearchText}" Placeholder="Suche nach..." Grid.Column="1" VerticalOptions="Center"/>
+            <SearchBar Text="{Binding SearchText}" Placeholder="Suche nach..." Grid.Column="1" VerticalOptions="Center" SearchCommand="{Binding SearchCommand}"/>
             <Button Text="Suche Starten" Command="{Binding SearchCommand}" Grid.Column="2" VerticalOptions="Center"/>
         </Grid>
         <CollectionView ItemsSource="{Binding Books}" Grid.Row="1" >
@@ -24,5 +25,9 @@
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
+        <c:Ticker Grid.Row="2" HorizontalOptions="Start" Content="{Binding SharedBookInfo}" TextColor="Orange" SecondsActive="30"/>
+        <Frame Grid.RowSpan="2" BackgroundColor="#22000000" IsVisible="{Binding IsBusy}">
+            <ActivityIndicator IsRunning="{Binding IsBusy}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
+        </Frame>
     </Grid>
 </ContentPage>

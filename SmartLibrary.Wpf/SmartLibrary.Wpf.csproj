@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net7.0-windows</TargetFramework>
+		<UseWPF>true</UseWPF>
+		<Nullable>disable</Nullable>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.1" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.10" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.10" />
+		<PackageReference Include="CommunityToolkit.MVVM" Version="8.2.1" />
+		<PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.39" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\SmartLibrary.Common\SmartLibrary.Common.csproj" />
+		<ProjectReference Include="..\SmartLibrary.Data\SmartLibrary.Data.csproj" />
+	</ItemGroup>
+
+</Project>

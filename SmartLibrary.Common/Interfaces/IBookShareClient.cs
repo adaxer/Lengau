@@ -3,5 +3,4 @@
 public interface IBookShareClient
 {
     Task<bool> ShareBook(SavedBook book);
-    string LastBookInfo { get; }
 }

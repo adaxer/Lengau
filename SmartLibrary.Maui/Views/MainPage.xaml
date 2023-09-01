@@ -8,6 +8,6 @@
     <VerticalStackLayout Margin="10" WidthRequest="200" HorizontalOptions="Start">
         <Label Text="Wer bist Du?" />
         <Entry Placeholder="Name eingeben" Text="{Binding UserName}" />
-        <Button Text="Übernehmen" Command="{Binding UpdateTitleCommand}"/>
+        <Button Text="Übernehmen" Command="{Binding UpdateUserCommand}"/>
     </VerticalStackLayout>
 </ContentPage>
